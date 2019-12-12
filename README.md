@@ -53,5 +53,10 @@ props：
     页面引用
       <hhh-form ref="myform" :reformRule="reformRule" :formData="formData" reform="reform"></hhh-form>
 
+        <div class="btn" @click="saveform">保存</div>
+        saveform() {
+            let formData = this.$refs.myform.submitForm();//要提交的表单数据
+            console.log(formData)
+        }
 ```
 
