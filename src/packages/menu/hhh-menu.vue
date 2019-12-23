@@ -8,7 +8,7 @@
             active-text-color="#ffffff"
             router
         >
-            <template v-for="item in items">
+            <template v-for="item in menuList">
                 <template v-if="item.subs">
                     <el-submenu :index="item.index" :key="item.index" v-if="item.show">
                         <template slot="title">
@@ -37,8 +37,9 @@
     </div>
 </template>
 <script>
-import bus from "./bus";
+import bus from "../bus";
 export default {
+  name: "HhhMenu",
   data() {
     return {
       collapse: false
@@ -122,10 +123,10 @@ export default {
 <style scoped>
 .sidebar {
   display: block;
-  position: absolute;
+  /* position: absolute;
   left: 0;
   top: 60px;
-  bottom: 0;
+  bottom: 0; */
   overflow-y: scroll;
 }
 

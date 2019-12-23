@@ -1,8 +1,14 @@
-import HhhForm from './packages/form/index.js';
+import HhhForm from './packages/form/index.js'
+import HhhMenu from './packages/menu/index.js'
+import HhhHead from './packages/head/index.js'
+import HhhTable from './packages/table/index.js'
 
 
 const components = [
-  HhhForm
+  HhhForm,
+  HhhMenu,
+  HhhHead,
+  HhhTable
 ]
 
 const install = function(Vue, opts = {}) {
@@ -18,5 +24,8 @@ if (typeof window !== 'undefined' && window.Vue) {
 
 export default {
   install,
-  HhhForm
+  HhhForm,
+  HhhMenu,
+  HhhHead,
+  HhhTable
 }
