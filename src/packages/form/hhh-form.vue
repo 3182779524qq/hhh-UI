@@ -88,11 +88,20 @@
           placeholder="选择时间范围"
         ></el-time-picker>
       </el-form-item>
+      <el-form-item v-else-if="item.type=='citypicker'" :label="item.name" :prop="item.field">
+        <el-cascader
+          :options="cityoptions"
+          :props="cityprops"
+          v-model="outData[item.field]"
+        ></el-cascader>
+      </el-form-item>
     </div>
   </el-form>
 </template>
 
 <script>
+import citycode from "./cityCode";
+
 export default {
   name: "HhhForm",
   props: {
@@ -165,7 +174,12 @@ export default {
   data() {
     return {
       outData: {},
-      formRule: {}
+      formRule: {},
+      cityoptions: citycode,
+      cityprops: {
+        value: "name",
+        label: "name"
+      },
     };
   },
   created() {
