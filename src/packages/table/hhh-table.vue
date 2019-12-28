@@ -15,6 +15,8 @@
       style="width: 100%"
       @selection-change="selectionChange"
       @sort-change="sortChange"
+      :tree-props="treeProps"
+      :row-key="rowKey"
     >
       <!--是否展示多选框-->
       <el-table-column v-if="tableData.isMultiple" type="selection" width="55"></el-table-column>
@@ -271,6 +273,8 @@ export default {
   name:"HhhTable",
   data() {
     return {
+      rowKey:this.rowKeyy,
+      treeProps:this.treePropsV,
       dialogVisible: false,
       ajax: this.inAjax,
       tableData: this.inTableData,
@@ -301,6 +305,13 @@ export default {
     };
   },
   props: {
+    rowKeyy:'',
+    treePropsV:{
+      type: Object,
+      default: function() {
+        return {}
+      }
+    },
     height: {},
     // 检测flush发生变化刷新数据
     flush: '',
@@ -463,6 +474,15 @@ export default {
         return ++i
       }
     },
+    readCookie (name) {
+      let arr = null
+      let reg = new RegExp('(^| )' + name + '=([^;]*)(;|$)')
+      if (document.cookie && (arr = document.cookie.match(reg))) {
+        return unescape(arr[2])
+      } else {
+        return null
+      }
+    },
     getList () {
       let posdata = Object.assign(
         {},
@@ -470,21 +490,33 @@ export default {
         this.serachFilte,
         this.sortData
       )
-      axios({
+      let obj = {}
+      if (this.ajax.method=='post') {
+        obj = {
           url: this.ajax.url,
           method: this.ajax.method,
-          data: posdata
-        })
+          data: posdata,
+          headers: JSON.parse(this.readCookie('headers'))
+        }
+      } else {
+        obj ={
+          url: this.ajax.url,
+          method: this.ajax.method,
+          params: posdata,
+          headers: JSON.parse(this.readCookie('headers'))
+        }
+      }
+      axios(obj)
         .then(res => {
-          let data = res.data
-          if (
-            (data.total > 9) & (data.page > 1) &&
-            data.list.length === 0
-          ) {
-            --this.ajax.data.page
-            this.getList()
-            return
-          }
+          let data = res.data.data
+          // if (
+          //   (data.total > 9) & (data.page > 1) &&
+          //   data.list.length === 0
+          // ) {
+          //   --this.ajax.data.page
+          //   this.getList()
+          //   return
+          // }
           if (this.ajax.callback) {
             this.tableData.tData = this.ajax.callback(data)
           } else {

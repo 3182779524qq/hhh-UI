@@ -61,7 +61,7 @@
         :prop="item.field"
         :required="item.required"
       >
-        <el-checkbox-group v-model="outData[item.field]">
+        <el-checkbox-group v-model="outData[item.field]" >
           <el-checkbox
             v-for="(checkedItem,index) in item.options"
             :label="checkedItem.value"
@@ -70,7 +70,7 @@
         </el-checkbox-group>
       </el-form-item>
       <el-form-item v-else-if="item.type=='radio'" :label="item.name" :prop="item.field">
-        <el-radio-group v-model="outData[item.field]" :disabled="item.disabled?item.disabled:false">
+        <el-radio-group v-model="outData[item.field]" :disabled="item.disabled?item.disabled:false" :style="{ width:item.width?item.width+'px':'205px'}">
           <el-radio
             v-for="(checkedItem,index) in item.options"
             :label="checkedItem.value"
@@ -80,6 +80,8 @@
       </el-form-item>
       <el-form-item v-else-if="item.type=='time'" :label="item.name" :prop="item.field">
         <el-time-picker
+          :disabled="item.disabled?item.disabled:false"
+          :style="{ width:item.width?item.width+'px':'205px'}"
           is-range
           v-model="outData[item.field]"
           range-separator="至"
@@ -90,6 +92,8 @@
       </el-form-item>
       <el-form-item v-else-if="item.type=='citypicker'" :label="item.name" :prop="item.field">
         <el-cascader
+          :disabled="item.disabled?item.disabled:false"
+          :style="{ width:item.width?item.width+'px':'205px'}"
           :options="cityoptions"
           :props="cityprops"
           v-model="outData[item.field]"
