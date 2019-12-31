@@ -20,12 +20,13 @@
     </div>-->
     <!-- <div class="system" @click="top" title="点击返回顶部 ↑">管理后台</div> -->
     <div class="header-right">
-      <div class="header-user-con">
+      <slot  name="right"></slot>
+      <!-- <div class="header-user-con">
         <div class="user-loginOut" @click="loginout">
-          <!-- <img src="../assets/img/out.png" alt /> -->
+          
           退出
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -85,6 +86,7 @@ export default {
     // 退出登录
     loginout() {
       console.log(111)
+      this.$emit('headClack','loginout')
       // this.confirm({
       //   customClass: "loginOut",
       //   title: "退出登录",

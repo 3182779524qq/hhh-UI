@@ -96,6 +96,7 @@
           :style="{ width:item.width?item.width+'px':'205px'}"
           :options="cityoptions"
           :props="cityprops"
+          :placeholder="item.placeholder?item.placeholder:'请选择内容'"
           v-model="outData[item.field]"
         ></el-cascader>
       </el-form-item>
